@@ -1,42 +1,39 @@
-## Python Flask Microservices
-The idea behind this application is to demonstrate the microservices architecture of today's modern system. In this demo, I have tried to show the basic microservices REST-API concepts of a tech & entertainment industry (i.e [Netflix](https://netflix.com)), and if we look at the system design of Netflix, it runs around more than 10,000+ microservices to manage the entire system, so in system-design, it's quite important to understand this concept.
-
-<img src="screenshots/Netflix_Microservices.png"/>
-
-## Technical Overview
-The Proof of Concept written using python and it uses a flask web framework to define the routes and to store the data in the server it uses mongodb database, and for authentication, it uses [JWT Token](https://jwt.io/) framework.
+## Market Data Simulator - Kafka Producer
+## Overview
+This project provides a microservices architecture where you simulate market data, consume it via Kafka, and store it in Redis. Additionally, a Flask API is provided to control the start and stop of these microservices.
 
 In this project, you will find three different types of microservices.
 
-1. Users
-2. Movies
-3. Trending Now
+1. MarketDataSimulator
+2. DataConsumer
+3. DataReader
 
-### Swagger API Documentation
-The Swagger API docs can be accessible via [http://127.0.0.1:5000/api/docs](http://127.0.0.1:5000/api/docs) and to test the API endpoints you need to authorize yourself using your jwt access token.
-
-<img src="screenshots/swagger.png"/>
-
-### Installation
+## Installation
 ``````````````````````````````````````````````````````````````````````````````````
-git clone https://github.com/anshumanpattnaik/python-flask-microservices
-cd python-flask-microservices
-pip install -r requirements.txt
-source venv/bin/activate
-python3 run.py
+Install Dependencies:
 
-Open http://127.0.0.1:5000 to view in the browser.
+
+pip install redis flask
+pip install confluent-kafka
+
+
+Run the Producer:
+step 1: python data_reader.py
+step2: python api.py
+
+
+
 ```````````````````````````````````````````````````````````````````````````````````
+## Start All Microservices:
+Once the API is running, open Postman and send a POST request to the /start endpoint to start all microservices:
 
-### Build and run docker image
+POST request: http://127.0.0.1:5000/start
 
-```````````````````````````````````````````````````````
-docker build -t python-flask-microservices .
-```````````````````````````````````````````````````````
+## Stop All Microservices:
+To stop all microservices, send a POST request to the /stop endpoint:
 
-```````````````````````````````````````````````````````````````````````````````
-docker run -it --name python-container -p 5000:5000 python-flask-microservices
-```````````````````````````````````````````````````````````````````````````````
+POST request: http://127.0.0.1:5000/stop
 
-### License
-This project is licensed under the [MIT License](LICENSE)
+## License
+This project is licensed under the MIT License.
+
